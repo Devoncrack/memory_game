@@ -71,7 +71,7 @@ function shuffleCard() {
   });
 }
 
-// shuffleCard();
+shuffleCard();
 
 cards.forEach((card) => {
   //   console.log(card);
