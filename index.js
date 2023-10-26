@@ -16,7 +16,8 @@ function flipCard(e) {
     disabled = true;
     let cardTwoImg = cardTwo.querySelector("img").src;
     let cardOneImg = cardOne.querySelector("img").src;
-
+    flips++;
+    document.querySelector(".flips").innerHTML = `Flips: ${flips}`;
     matchCards(cardOneImg, cardTwoImg);
   }
 }
@@ -27,13 +28,14 @@ function matchCards(img1, img2) {
 
     if (matchedCards == 8) {
       setTimeout(() => {
-        return shuffleCard();
+        document.querySelector(".cards").style.display = "none";
+        document.querySelector(".treasure").style.display = "flex";
       }, 1500);
     }
     cardOne.removeEventListener("click", flipCard);
     cardTwo.removeEventListener("click", flipCard);
     cardOne = cardTwo = "";
-    flips++;
+
     return (disabled = false);
   }
 
@@ -48,7 +50,7 @@ function matchCards(img1, img2) {
     cardOne = cardTwo = "";
     disabled = false;
   }, 1200);
-  flips++;
+
   console.log(flips);
 }
 
@@ -60,9 +62,12 @@ function shuffleCard() {
   arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
   cards.forEach((card, index) => {
     card.classList.remove("flip");
-    let imgTag = card.querySelector("img");
-    imgTag.src = `images/img${arr[index]}.png`;
-    card.addEventListener("click", flipCard);
+
+    setTimeout(() => {
+      let imgTag = card.querySelector("img");
+      imgTag.src = `images/img${arr[index]}.png`;
+      card.addEventListener("click", flipCard);
+    }, 1500);
   });
 }
 
@@ -71,4 +76,12 @@ function shuffleCard() {
 cards.forEach((card) => {
   //   console.log(card);
   card.addEventListener("click", flipCard);
+});
+
+document.querySelector(".refresh").addEventListener("click", () => {
+  shuffleCard();
+  flips = 0;
+  document.querySelector(".flips").innerHTML = `Flips: ${flips}`;
+  document.querySelector(".cards").style.display = "flex";
+  document.querySelector(".treasure").style.display = "none";
 });
