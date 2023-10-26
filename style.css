@@ -40,7 +40,7 @@ body {
 .cards .card {
   cursor: pointer;
   position: relative;
-  perspective: 100%;
+  perspective: 800px;
   transform-style: preserve-3d;
   height: calc(100% / 4 - 10px);
   width: calc(100% / 4 - 10px);
@@ -49,6 +49,8 @@ body {
   height: 100%;
   width: 100%;
   position: absolute;
+  user-select: none;
+  pointer-events: none;
   transition: transform 1s linear, opacity 0.1s 0.5s linear;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 7px;
@@ -73,10 +75,32 @@ body {
   transform: rotateY(-180deg);
 }
 
-.card:hover .view {
+.card.shake {
+  animation: shake 0.35s ease-in;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-13px);
+  }
+  40% {
+    transform: translateX(13px);
+  }
+  60% {
+    transform: translateX(-8px);
+  }
+  80% {
+    transform: translateX(8px);
+  }
+}
+.card.flip .view {
   transform: rotateY(0);
 }
 
-.card:hover .back-view {
+.card.flip .back-view {
   opacity: 1;
 }
